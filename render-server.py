@@ -5,6 +5,18 @@ import os
 from flask import Flask, request
 from playwright.async_api import async_playwright
 
+import base64
+
+# If APPSTATE_B64 env var provided, decode it and write ./appstate.json
+b64 = os.getenv("APPSTATE_B64")
+if b64:
+    try:
+        with open("appstate.json", "wb") as _f:
+            _f.write(base64.b64decode(b64))
+        print("Wrote ./appstate.json from APPSTATE_B64 env var")
+    except Exception as _e:
+        print("Failed to decode APPSTATE_B64:", _e)
+        
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
