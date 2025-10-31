@@ -38,7 +38,7 @@ def start_sender():
     chat_id = request.form['chat_id']
     hater = request.form['hater']
     delay = int(request.form['delay'])
-    asyncio.create_task(run_sender(json_path, chat_id, hater, delay))
+    asyncio.run(run_sender(json_path, chat_id, hater, delay))
     return f'Started sending messages to Chat ID: {chat_id}'
 
 async def run_sender(json_path, chat_id, hater, delay):
